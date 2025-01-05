@@ -23,20 +23,46 @@ URL: http://localhost:8080/api/v1/calculate<br>
     "expression": "expression"
 }
 ```
+
+
 #### Примеры запросов (Windows)
-1. Успешный подсчёт
+1. Успешный подсчёт (200)
 ```bash
 curl --location 'http://localhost:8080/api/v1/calculate' --header 'Content-Type: application/json' --data '{"expression":"2+2*2"}'
 ```
-2. Некорректное выражение
+
+Результат:
+```json
+{
+    "result": 6
+}
+```
+
+
+2. Некорректное выражение (422)
 ```bash
 curl -X POST http://localhost:8080/api/v1/calculate ^ -H "Content-Type: application/json" ^ -d "{\"expression\": \"2+a\"}"
 ```
-3. Неправильный формат JSON
+
+Результат:
+```json
+{
+    "error": "Invalid expression format"
+}
+```
+
+
+3. Неправильный формат JSON (500)
 ```bash
 curl -X POST http://localhost:8080/api/v1/calculate ^ -H "Content-Type: application/json" ^ -d "invalid json"
 ```
 
+Результат:
+```json
+{
+    "error": "Internal server error"
+}
+```
 
 ### Запуск тестов
 В проекте уже реализованы автоматические тесты для калькулятора и HTTP-обработчиков.
